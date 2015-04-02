@@ -1,51 +1,71 @@
 var React = require('react'),
-  Reactable = require('reactable'),
-  TrialBalanceStore = require('../stores/TrialBalanceStore'),
-  TrialBalanceActions = require('../actions/TrialBalanceActions'),
-  TrialBalanceService = require('../services/TrialBalanceService');
+    Griddle = require('griddle-react'),
+    TrialBalanceStore = require('../stores/TrialBalanceStore'),
+    TrialBalanceActions = require('../actions/TrialBalanceActions'),
+    TrialBalanceService = require('../services/TrialBalanceService');
 
 function getAppState() {
-  return {
-    trialBalance: TrialBalanceStore.getTrialBalance()
-  };
+    return {
+        trialBalance: TrialBalanceStore.getTrialBalance()
+    };
 }
 
-var Table = Reactable.Table;
 var TrialBalanceView = React.createClass({
 
-  getInitialState: function() {
-    return getAppState();
-  },
+    getInitialState: function () {
+        return getAppState();
+    },
 
-  componentWillMount: function() {
-    TrialBalanceActions.loadTrialBalance({});
-  },
+    componentWillMount: function () {
+        TrialBalanceActions.loadTrialBalance({});
+    },
 
-  componentDidMount: function() {
-    TrialBalanceStore.addChangeListener(this._onChange);
-  },
+    componentDidMount: function () {
+        TrialBalanceStore.addChangeListener(this._onChange);
+    },
 
-  componentWillUnmount: function() {
-    TrialBalanceStore.removeChangeListener(this._onChange);
-  },
+    componentWillUnmount: function () {
+        TrialBalanceStore.removeChangeListener(this._onChange);
+    },
 
-  render: function(){
-    return (
-      <div>
-        <div className="tableHeader">Trial Balance</div>
-        <Table className="table"
-          data={this.state.trialBalance}
-          sortable={true}
-          filterable={['name', 'type']}
-          columns={[{key:"appId",label:"Account No."},{key:"name",label:"Account Name"},{key:"type",label:"Account Type"},{key:"balance",label:"Balance"}]}
-        />
-      </div>
-    );
-  },
+    render: function () {
+        var columnMetadata = [
+            {
+                columnName: "appId",
+                displayName: "Account No."
+            },
+            {
+                columnName: "name",
+                "displayName": "Account Name"
+            },
+            {
+                columnName: "type",
+                displayName: "Account Type"
+            },
+            {
+                columnName: "balance",
+                displayName: "Balance"
+            }
+        ];
 
-  _onChange: function() {
-    this.setState(getAppState());
-  }
+        return (
+            <div>
+                <div className="tableHeader">Trial Balance</div>
+                <Griddle results={this.state.trialBalance}
+                         columnMetadata={columnMetadata}
+                         showFilter={true}
+                         showSettings={true}
+                         useFixedHeader={true}
+                         useGriddleStyles={true}
+                    />
+            </div>
+        );
+
+    },
+
+    _onChange: function () {
+        this.setState(getAppState());
+    }
 
 });
 module.exports = TrialBalanceView;

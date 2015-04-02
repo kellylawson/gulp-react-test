@@ -1,7 +1,7 @@
 {
   "lines":[
-    { "$id": "1", "$type": "trialBalanceLine", "name": "Gas", "type": "Expense", "appId": "123-32497234", "balance": "1000.00" },
-    { "$id": "2", "$type": "trialBalanceLine", "name": "Van Loan", "appId": "123-32497234", "balance": "1000.00" },
-    { "$id": "3", "$type": "trialBalanceLine", "name": "Animal Sales", "type": "Income", "appId": "123-32497234", "balance": "1000.00" }
+    { "id": "1", "$type": "trialBalanceLine", "name": "Gas", "type": "Expense", "appId": "123-32497234", "balance": "1000.00" },
+    { "id": "2", "$type": "trialBalanceLine", "name": "Van Loan", "appId": "123-32497234", "balance": "1000.00" },
+    { "id": "3", "$type": "trialBalanceLine", "name": "Animal Sales", "type": "Income", "appId": "123-32497234", "balance": "1000.00" }
   ]
 }
